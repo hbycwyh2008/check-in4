@@ -1,0 +1,41 @@
+Individual Project Check-In 2
+ 
+ 
+1 ASSIGNMENT
+Improve AP Classroom feedback for AP Computer Science FRQ so that students
+can (1) see why points were lost with a clear mapping to the scoring rubric and
+supporting evidence from their submission, and ( 2) enter a 10-minute mini-
+practice aligned to that rubric row (combined rubric breakdown + practice plan).
+2 FINAL PROTOTYPE
+• Live demo: https://hbycwyh2008.github.io/check-in4/
+• How to view: Open the URL in Google Chrome (or Microsoft Edge). No login
+required. Interact with the full flow from the overview through rubric details,
+evidence, practice, and the practice queue.
+• Design and implementation: The task focus, layout, and user-facing English
+copy reflect my design decisions. The clickable HTML was built with implemen-
+tation support from Cursor (AI-assisted editing) as a medium-fidelity mockup,
+consistent with course guidance that prototyping tools may be used while the
+design remains my own.
+Main flow (one line): Overview → Rubric breakdown → Row detail (including Evi-
+dence) → Practice (State → Example → Match → Checklist) → Practice queue.
+3 FINAL EVALUATION PLAN
+(To be executed for the final project; this check-in describes the plan only.)
+• Participants: Students currently taking or who have taken AP CSA or AP CSP.
+Target n ≈ 20 via an online questionnaire; if recruitment is difficult, switch to
+5 short face-to-face or video interviews with the same topic coverage.
+• Procedure (about 10 minutes per participant): Either watch an approximately
+5-minute video walkthrough of the prototype (link to be added in the final
+deliverable) or spend about 5 minutes exploring the live demo independently,
+then complete the questionnaire or interview.
+• Quantitative: 7-point Likert items (in English), e.g. agreement with: under-
+standing why points were lost; knowing what to practice next; perceived use-
+1
+fulness; willingness to use again.
+• Qualitative:1–2open-ended questions on confusion and improvement sugges-
+tions; responses summarized by thematic coding.
+• Data:Raw exports and notes will be included in theappendixof the final
+project submission.
+4 PEER FEEDBACK REQUEST
+• Is navigation fromEvidencetopracticeclear enough?
+• Does the practice section feel liketoo many stepsfor one rubric row?
+2

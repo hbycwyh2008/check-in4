@@ -1,0 +1,44 @@
+Individual Project Check-In 2
+Wang Yuhe
+ywang4714@gatech.edu
+1 CHECK-IN 2 UPDATE
+Brief Update
+In Check-in1, I proposed three different FRQ feedback designs and created
+three corresponding low-fi wireframes to explore different information organiza-
+tion. This check-in compares their differences and collects feedback to determine
+which design direction needs improvement.
+Comparison of Design Alternatives
+These three designs highlight different stages in the feedback process.
+Design A (Rubric Breakdown)
+This design emphasizes scoring transparency. Students can clearly understand
+the points earned from each rubric to more efficiently identify where points are
+lost.
+Design B (Anchored Feedback)
+This design underlines the reasons for the loss of points. Comments help students
+locate relevant parts of their own answers and better understand why they lose
+points.
+Design C (Practice Plan)
+This design emphasizes action planning. The system not only explains the errors
+students made but also shows what needs to be done in action, helping them
+understand which skills they need to hone and how to improve their scores on
+similar questions.
+From the perspective of the learning process:
+• Design A highlights finding where points are lost.
+• Design B emphasizes understanding why points are lost.
+• Design C underlines action plans for improvement.
+1
+Current Direction
+In the current round of comparison, I tend to choose Design B because it helps
+students better understand why they lose points, thereby greatly reducing cog-
+nitive load when reading comments. But the action plan offered in Design C is
+also of high importance, as students not only need to understand why they make
+errors but also know what to do in practice. Therefore, in the next round, I am
+considering combining those two designs.
+Questions for Peer Feedback
+In order to improve the design, I hope to get feedback from the following:
+1. Do you think the difference among those three designs is clear?
+2. Which design helps students transition from “see result score” to “how to
+improve their scores”?
+3. Do you think Design C looks more like a study plan rather than an interface?
+4. Which design deserves the needs iteration in the next round?
+2

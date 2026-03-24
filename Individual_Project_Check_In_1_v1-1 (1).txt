@@ -1,0 +1,80 @@
+Individual Project Check-In 1
+Wang Yuhe
+ywang4714@gatech.edu
+Writing Note
+This check-in is based on my direct classroom observations in AP Computer
+Science and my own low-fidelity design drafts and study plan. The example
+discussed in this document (e.g., counter pattern with reset mechanism) reflects
+common mistakes I have observed from my students in FRQ practice.
+1 PROJECT OVERVIEW
+Background & Motivation
+In AP CS, free-response questions are more challenging than multiple-choice
+questions. Most students have no idea how to start or get stuck at a certain step
+because FRQ questions require them to write out their algorithm in a clear, struc-
+tured way. In this case, timely and valid feedback is essential for improvement.
+In my observation, students in AP classes tend to focus on scores: they rarely
+review the feedback report, or they don’t know how to improve for the next
+attempt, so they heavily rely on their teacher’s explanations. For instance, many
+questions test the counter pattern combined with a reset mechanism. Many stu-
+dents don’t know when or how to reset the counter variable to zero, resulting in
+a loss of points on FRQs.
+Thus, I hope to redesign the FRQ score report not only to explain why students
+lose points, but also to guide them on which skills to practice, which questions
+test those skills, and how to improve their performance on similar questions.
+Ultimately, I want to translate the score report into a practical improvement
+plan.
+What I am redesigning:
+What I am redesigning is the AP Classroom AP CS FRQ student-side score
+report interface, where students can see how many points they get and the
+corresponding scoring.
+Why it matters:
+1
+Valid feedback can greatly reduce reliance on teachers’ explanations by turning
+the reasons for lost points into guidance for next steps. For FRQs that require
+consistent reflection and targeted practice, if feedback is not detailed and stu-
+dents only focus on their score, their confidence and willingness to practice can
+be compromised. Designing the feedback interface to be more actionable can
+equip students to improve their performance on similar questions in a more
+independent and effective way.
+2 DESIGN EXPLORATION (THREE ALTERNATIVES)
+Design A: Rubric Breakdown
+Design intent:
+This design highlights transparency and structure. The goal is to enable students
+to see how many points they earned for each scoring criterion, so they can
+understand where points are lost.
+Key elements:
+• Display each scoring criterion
+• Explanation for each scoring criterion
+• Highlight where points are lost
+• Organized information layout
+Design B: Anchored Feedback
+Design intent:
+This design emphasizes a clear mapping between students’ answers and the
+scoring rubric, reducing the cognitive load of understanding why points are lost.
+Key elements:
+• Side-by-side view of students’ answers and comments
+• Clear mapping between each comment and the relevant part of the student’s
+answer
+• Expandable comments that reveal detailed explanations on click/tap
+• A consolidated summary of common issue types (frequent mistakes)
+2
+Design C: Practice Plan
+Design intent:
+This design emphasizes translating feedback into an actionable practice plan.
+Key elements:
+• Categorization of common mistake types
+• Skill tags aligned with each mistake
+• Recommended practice directions or similar questions
+• A short “next-step practice plan” section
+Low-Fidelity Wireframes
+Figure1—Low-fidelity wireframes for the three alternatives
+(A/B/C).
+3 QUESTIONS FOR PEER FEEDBACK
+1. Do the three designs meaningfully differ, or are they too similar?
+2. Is my framing of the student goal (find → understand → act) appropriate for
+FRQ feedback?
+3. Which design direction seems most promising to iterate on, and why?
+4. What key information or workflow step is missing from all three?
+3
+5. Any concerns about scope (too broad/too narrow) for the full project?
+4

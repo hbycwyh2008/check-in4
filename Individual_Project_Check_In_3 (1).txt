@@ -1,0 +1,41 @@
+Individual Project Check-In 3
+Wang Yuhe
+ywang4714@gatech.edu
+In the previous two check-ins, I gradually figured out my design direction. Ini-
+tially, I proposed three FRQ feedback designs: Design A highlights the rubric
+breakdown, helping students find where points are lost; Design B underlines
+anchored feedback, helping students understand why points are lost; and De-
+sign C emphasizes the practice plan, helping students figure out what they need
+to do next. My overall design logic is that feedback should help students iden-
+tify where they lost points, understand the reasons they lost points, and finally
+understand how they can take action to improve their scores.
+In Check-In2, after comparing the three designs, I tended to choose Design
+B because it maps teachers’ comments to students’ answers, greatly reducing
+the cognitive load of understanding feedback. Meanwhile, I think the action
+plan in Design C matters as well. Therefore, I want to try combining Design B
+with Design C, equipping the interface with the ability not only to explain why
+students make mistakes but also to help them create a practice plan for future
+improvement.
+In Check-In3, I want to submit my evaluation plan. I am planning to go through
+a round of formative evaluation, testing whether the current prototype can help
+students:
+1. more efficiently understand why points are lost;
+2. align comments to a specific position in their own answers;
+3. formulate a next-step practice plan according to the feedback.
+These goals are also my initial motivation for my current project: to translate
+the score report into a more actionable tool for future improvement, reducing
+students’ over-dependency on teachers’ explanations.
+I am planning to recruit3–5students who are preparing for AP Computer Sci-
+ence, using a low-fidelity prototype to administer a think-aloud usability test.
+Participants will need to complete several tasks, such as explaining why points
+are lost, pointing out which comment relates to which answer, and describing the
+next-step action plan. After the tests, I will conduct a short face-to-face interview
+to collect their feedback about the clarity, usability, and execution of the design
+1
+interface.
+I hope my peers can give the following feedback:
+• Does my evaluation plan test the value of my current design?
+• Do these tasks simulate the real situation when students check their FRQ
+feedback?
+• Is the scope of the evaluation appropriate for my final project?
+2
