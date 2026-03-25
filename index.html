@@ -4,8 +4,8 @@
 <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>AP CSA — FRQ scores &amp; feedback (concept)</title>
-        <!-- site-revision: 2026-03-25 (warm-ups + quiz-only progress, matches[], Pages cache-bust) -->
+        <title>AP CSA — Practice feedback (concept)</title>
+        <!-- site-revision: 2026-03-26 (copy: practice-wide framing; quiz items unchanged) -->
         <!-- No Google Fonts: avoids long hang when fonts.googleapis.com is blocked/slow (e.g. some networks). -->
         <style>
                 /* Light LMS look inspired by AP Classroom / College Board (unofficial student prototype). */
@@ -612,8 +612,8 @@
                 <div class="site-header-inner">
                         <div class="brand">AP Classroom</div>
                         <div class="crumb">AP Computer Science A <span aria-hidden="true">›</span> Assignments <span
-                                        aria-hidden="true">›</span> Unit 4 FRQ — Feedback <span
-                                        style="opacity:0.8;font-size:0.75rem">· student UI concept (not College
+                                        aria-hidden="true">›</span> Practice feedback <span
+                                        style="opacity:0.8;font-size:0.75rem">· example: written work (not College
                                         Board)</span></div>
                 </div>
         </header>
@@ -630,8 +630,12 @@
                         <section id="screen-overview" class="screen active">
                                 <h3>Course</h3>
                                 <p class="muted" style="margin:0">AP Computer Science A</p>
-                                <h3 style="margin-top:1rem">Assignment</h3>
-                                <p class="muted" style="margin:0">Unit 4 FRQ — Runtime analysis</p>
+                                <h3 style="margin-top:1rem">Assignment (example)</h3>
+                                <p class="muted" style="margin:0">Unit 4 — Runtime analysis</p>
+                                <p class="muted" style="margin:0.5rem 0 0;font-size:0.82rem">The same feedback pattern—what
+                                        was wrong, why it matters, and a short next step—applies across AP Classroom
+                                        practice: progress checks, topic quizzes, and written work. This screen uses one
+                                        written item to show the deepest path (rubric + evidence + pack).</p>
                                 <h3 style="margin-top:1rem">Screen recording</h3>
                                 <p class="muted" style="margin:0;font-size:0.88rem">Walkthrough clip (H.264 <strong>.mp4</strong>,
                                         converted for the web — works in Chrome, Safari, Edge, and most mobile browsers). If
@@ -649,11 +653,13 @@
                                 <p class="score-pill">Overall score: 2 / 3</p>
                                 <p class="muted">You earned full credit on algorithm structure and readability. One
                                         rubric row needs evidence tying Big-O to your code.</p>
-                                <p class="muted" style="margin-top:1rem"><strong class="callout-practice">Based on your
-                                                rubric gaps, we suggest one practice pack with warm-ups, several
-                                                multiple-choice drills on your weak row, and a checklist.</strong></p>
-                                <p class="muted" style="font-size:0.82rem">This is not a single question. Each pack includes
-                                        targeted items (e.g. tying Big-O to loops, nesting, recursion, and halving steps), then a checklist you can revisit in the same session before you refresh.</p>
+                                <p class="muted" style="margin-top:1rem"><strong class="callout-practice">Across your
+                                                practice, the same feedback idea applies everywhere; on this assignment,
+                                                one rubric row still needs a practice pack with warm-ups, several
+                                                multiple-choice steps, and a checklist.</strong></p>
+                                <p class="muted" style="font-size:0.82rem">Progress checks and quizzes use the same idea
+                                        (missed skill → explanation → quick drill); this written example shows rubric rows
+                                        and submission evidence when the task is more open-ended.</p>
                                 <p class="muted" style="font-size:0.8rem">You’re in the <strong>middle third</strong> of
                                         this class (anonymous).</p>
                                 <p class="muted" style="margin-top:0.85rem;font-size:0.78rem;border-left:3px solid var(--border-strong);padding-left:0.65rem"><strong>Survey mode:</strong> practice progress is kept only for this visit. Refreshing or reopening the page starts clean so each participant sees the same baseline.</p>
@@ -781,8 +787,10 @@
                         <section id="screen-queue" class="screen">
                                 <button type="button" class="btn btn-ghost" data-nav="overview">← Back</button>
                                 <h1 style="margin-top:0.5rem">Practice queue</h1>
-                                <p class="muted">Track suggested practice packs tied to rubric gaps. Each pack includes warm-ups,
-                                        several gap-targeted questions, and a checklist. Nothing is stored after refresh.</p>
+                                <p class="muted">Track suggested practice packs tied to rubric gaps on this assignment. In a
+                                        full product, the same queue idea could list next steps across progress checks and
+                                        quizzes too; this demo uses one written-response example. Nothing is stored after
+                                        refresh.</p>
                                 <div id="queue-mount"></div>
                                 <button type="button" class="btn btn-primary" id="btn-save-queue">Save progress</button>
                                 <p class="muted" style="font-size:0.8rem;margin-top:0.75rem">Optional: <a href="#"
