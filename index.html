@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>AP CSA — FRQ scores &amp; feedback (concept)</title>
+        <!-- No Google Fonts: avoids long hang when fonts.googleapis.com is blocked/slow (e.g. some networks). -->
+        <style>
+                /* Light LMS look inspired by AP Classroom / College Board (unofficial student prototype). */
+                :root {
+                        --page-bg: #e7ebf2;
+                        --surface: #ffffff;
+                        --surface-subtle: #f4f6f9;
+                        --text: #1b1f24;
+                        --muted: #5a6270;
+                        --border: #d4dae3;
+                        --border-strong: #b8c2cf;
+                        /* College Board–style blues */
+                        --ap-blue: #0057b8;
+                        --ap-blue-dark: #003b7a;
+                        --ap-blue-hover: #004494;
+                        --ap-sky: #e8f1fb;
+                        --accent: var(--ap-blue);
+                        --link: #0057b8;
+                        --ok: #0d7d4d;
+                        --ok-bg: #e8f5ef;
+                        --warn: #b32020;
+                        --warn-bg: #fcefef;
+                        --highlight-bg: #fff6d6;
+                        --highlight-border: #e6a800;
+                        --radius: 6px;
+                        --radius-lg: 8px;
+                        --shadow: 0 1px 3px rgba(0, 40, 100, 0.08);
+                        --shadow-card: 0 2px 8px rgba(0, 40, 100, 0.06);
+                        --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                }
+
+                * {
+                        box-sizing: border-box;
+                }
+
+                /* Author .btn sets display; without this, [hidden] on buttons stays visible */
+                [hidden] {
+                        display: none !important;
+                }
+
+                body {
+                        margin: 0;
+                        min-height: 100vh;
+                        font-family: var(--font-body);
+                        background: var(--page-bg);
+                        color: var(--text);
+                        line-height: 1.5;
+                        -webkit-font-smoothing: antialiased;
+                }
+
+                .site-header {
+                        background: linear-gradient(180deg, var(--ap-blue-dark) 0%, var(--ap-blue) 100%);
+                        color: #fff;
+                        padding: 0.65rem 1rem;
+                        box-shadow: 0 2px 4px rgba(0, 30, 80, 0.15);
+                }
+
+                .site-header-inner {
+                        max-width: 640px;
+                        margin: 0 auto;
+                }
+
+                .site-header .brand {
+                        font-weight: 700;
+                        font-size: 1.05rem;
+                        letter-spacing: 0.02em;
+                }
+
+                .site-header .crumb {
+                        font-size: 0.8rem;
+                        opacity: 0.92;
+                        margin-top: 0.2rem;
+                        font-weight: 400;
+                }
+
+                .site-header .crumb span {
+                        opacity: 0.75;
+                }
+
+                .app {
+                        max-width: 640px;
+                        margin: 0 auto;
+                        min-height: calc(100vh - 52px);
+                        padding: 1rem 1rem 2.5rem;
+                }
+
+                .app-panel {
+                        background: var(--surface);
+                        border: 1px solid var(--border);
+                        border-radius: var(--radius-lg);
+                        box-shadow: var(--shadow-card);
+                        padding: 1.25rem 1.35rem 1.5rem;
+                }
+
+                h1,
+                h2,
+                h3 {
+                        font-family: var(--font-body);
+                        font-weight: 700;
+                        line-height: 1.3;
+                        margin: 0 0 0.5rem;
+                        color: var(--ap-blue-dark);
+                }
+
+                h1 {
+                        font-size: 1.35rem;
+                }
+
+                h2 {
+                        font-size: 1.1rem;
+                        color: var(--ap-blue-dark);
+                }
+
+                h3 {
+                        font-size: 0.8rem;
+                        color: var(--muted);
+                        text-transform: uppercase;
+                        letter-spacing: 0.05em;
+                        font-weight: 700;
+                }
+
+                .muted {
+                        color: var(--muted);
+                        font-size: 0.9rem;
+                }
+
+                .tag {
+                        display: inline-block;
+                        font-size: 0.68rem;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.04em;
+                        padding: 0.2rem 0.5rem;
+                        border-radius: 4px;
+                        background: var(--ap-sky);
+                        color: var(--ap-blue-dark);
+                        border: 1px solid #c5d9f0;
+                }
+
+                .tag.warn {
+                        color: var(--warn);
+                        background: var(--warn-bg);
+                        border-color: #e8bcbc;
+                }
+
+                .tag.ok {
+                        color: var(--ok);
+                        background: var(--ok-bg);
+                        border-color: #b8dcc8;
+                }
+
+                .screen {
+                        display: none;
+                        animation: fade 0.2s ease;
+                }
+
+                .screen.active {
+                        display: block;
+                }
+
+                @keyframes fade {
+                        from {
+                                opacity: 0;
+                                transform: translateY(4px);
+                        }
+
+                        to {
+                                opacity: 1;
+                                transform: translateY(0);
+                        }
+                }
+
+                .score-pill {
+                        font-family: var(--font-body);
+                        font-size: 2rem;
+                        font-weight: 700;
+                        color: var(--ap-blue-dark);
+                        margin: 0.65rem 0 0.25rem;
+                }
+
+                .btn {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.35rem;
+                        font-family: var(--font-body);
+                        font-weight: 600;
+                        font-size: 0.95rem;
+                        padding: 0.6rem 1rem;
+                        border-radius: var(--radius);
+                        border: none;
+                        cursor: pointer;
+                        transition: background 0.15s, border-color 0.15s, transform 0.08s;
+                }
+
+                .btn:active {
+                        transform: scale(0.99);
+                }
+
+                .btn-primary {
+                        background: var(--ap-blue);
+                        color: #fff;
+                        width: 100%;
+                        margin-top: 1rem;
+                        box-shadow: var(--shadow);
+                }
+
+                .btn-primary:hover {
+                        background: var(--ap-blue-hover);
+                }
+
+                .btn-secondary {
+                        background: var(--surface);
+                        color: var(--ap-blue);
+                        border: 2px solid var(--ap-blue);
+                        width: 100%;
+                        margin-top: 0.5rem;
+                }
+
+                .btn-secondary:hover {
+                        background: var(--ap-sky);
+                }
+
+                .btn-ghost {
+                        background: transparent;
+                        color: var(--link);
+                        padding: 0.5rem 0;
+                        width: auto;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                }
+
+                .btn-ghost:hover {
+                        text-decoration: underline;
+                        color: var(--ap-blue-dark);
+                }
+
+                .btn-row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 0.5rem;
+                        margin-top: 1rem;
+                }
+
+                .btn-row .btn {
+                        width: auto;
+                        flex: 1;
+                        min-width: calc(50% - 0.25rem);
+                }
+
+                .card {
+                        background: var(--surface-subtle);
+                        border: 1px solid var(--border);
+                        border-radius: var(--radius-lg);
+                        padding: 1rem 1.1rem;
+                        margin-top: 1rem;
+                }
+
+                .rubric-row {
+                        display: block;
+                        width: 100%;
+                        text-align: left;
+                        padding: 1rem;
+                        margin-top: 0.5rem;
+                        background: var(--surface);
+                        border: 1px solid var(--border);
+                        border-radius: var(--radius-lg);
+                        color: var(--text);
+                        cursor: pointer;
+                        font-family: var(--font-body);
+                        transition: border-color 0.15s, box-shadow 0.15s;
+                        box-shadow: var(--shadow);
+                }
+
+                .rubric-row:hover {
+                        border-color: var(--ap-blue);
+                        box-shadow: 0 2px 10px rgba(0, 87, 184, 0.1);
+                }
+
+                .rubric-row .row-top {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        gap: 0.75rem;
+                }
+
+                .rubric-row .name {
+                        font-weight: 600;
+                        color: var(--text);
+                }
+
+                .rubric-row .pts {
+                        font-weight: 700;
+                        color: var(--ap-blue);
+                        font-size: 1.05rem;
+                }
+
+                .progress-steps {
+                        display: flex;
+                        gap: 0.35rem;
+                        margin: 1rem 0;
+                        flex-wrap: wrap;
+                }
+
+                .progress-steps span {
+                        font-size: 0.65rem;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.05em;
+                        padding: 0.35rem 0.55rem;
+                        border-radius: 4px;
+                        background: var(--surface-subtle);
+                        color: var(--muted);
+                        border: 1px solid var(--border);
+                }
+
+                .progress-steps span.on {
+                        color: #fff;
+                        background: var(--ap-blue);
+                        border-color: var(--ap-blue);
+                }
+
+                .progress-steps span.done {
+                        color: var(--ok);
+                        border-color: #7bc49a;
+                        background: var(--ok-bg);
+                }
+
+                .highlight {
+                        background: var(--highlight-bg);
+                        border-bottom: 2px solid var(--highlight-border);
+                        padding: 0 2px;
+                }
+
+                .split-evidence {
+                        display: grid;
+                        gap: 1rem;
+                        margin-top: 1rem;
+                }
+
+                @media (min-width: 480px) {
+                        .split-evidence {
+                                grid-template-columns: 1fr 1fr;
+                        }
+                }
+
+                .submission-box {
+                        font-size: 0.9rem;
+                        line-height: 1.6;
+                        padding: 1rem;
+                        background: var(--surface-subtle);
+                        border-radius: var(--radius-lg);
+                        border: 1px solid var(--border);
+                }
+
+                .mcq-option {
+                        display: block;
+                        width: 100%;
+                        text-align: left;
+                        padding: 0.75rem 1rem;
+                        margin-top: 0.5rem;
+                        background: var(--surface);
+                        border: 1px solid var(--border);
+                        border-radius: var(--radius-lg);
+                        color: var(--text);
+                        font-family: var(--font-body);
+                        cursor: pointer;
+                        transition: border-color 0.15s;
+                }
+
+                .mcq-option:hover {
+                        border-color: var(--ap-blue);
+                }
+
+                .mcq-option.correct {
+                        border-color: var(--ok);
+                        background: var(--ok-bg);
+                }
+
+                .mcq-option.wrong {
+                        border-color: var(--warn);
+                        background: var(--warn-bg);
+                }
+
+                .check-item {
+                        display: flex;
+                        gap: 0.65rem;
+                        align-items: flex-start;
+                        margin-top: 0.65rem;
+                        font-size: 0.9rem;
+                }
+
+                .check-item input {
+                        margin-top: 0.25rem;
+                        accent-color: var(--ap-blue);
+                }
+
+                .toast {
+                        position: fixed;
+                        bottom: 1.25rem;
+                        left: 50%;
+                        transform: translateX(-50%) translateY(120%);
+                        background: var(--ok);
+                        color: #fff;
+                        padding: 0.65rem 1.25rem;
+                        border-radius: var(--radius-lg);
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                        transition: transform 0.25s ease;
+                        z-index: 100;
+                        box-shadow: var(--shadow-card);
+                }
+
+                .toast.show {
+                        transform: translateX(-50%) translateY(0);
+                }
+
+                .topbar {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-bottom: 0.65rem;
+                        padding-bottom: 0.65rem;
+                        border-bottom: 1px solid var(--border);
+                }
+
+                .topbar .muted {
+                        font-size: 0.78rem;
+                        color: var(--muted);
+                }
+
+                .example-pair {
+                        display: grid;
+                        gap: 0.75rem;
+                        margin-top: 0.75rem;
+                }
+
+                .example-pair .ex {
+                        padding: 0.75rem;
+                        border-radius: var(--radius-lg);
+                        font-size: 0.88rem;
+                        background: var(--surface);
+                        border: 1px solid var(--border);
+                }
+
+                .example-pair .weaker {
+                        border-left: 4px solid var(--warn);
+                        background: var(--warn-bg);
+                }
+
+                .example-pair .stronger {
+                        border-left: 4px solid var(--ok);
+                        background: var(--ok-bg);
+                }
+
+                .ex-label {
+                        font-size: 0.68rem;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.06em;
+                        margin-bottom: 0.35rem;
+                        color: var(--muted);
+                }
+
+                .feedback-inline {
+                        margin-top: 0.75rem;
+                        font-weight: 600;
+                        min-height: 1.5rem;
+                }
+
+                .feedback-inline.ok {
+                        color: var(--ok);
+                }
+
+                .feedback-inline.bad {
+                        color: var(--warn);
+                }
+
+                .practice-progress-banner {
+                        margin: 0.85rem 0 0;
+                        padding: 0.7rem 1rem;
+                        font-size: 1rem;
+                        font-weight: 700;
+                        line-height: 1.35;
+                        color: var(--ap-blue-dark);
+                        background: linear-gradient(105deg, var(--ap-sky) 0%, #ffffff 55%, #fff6d6 100%);
+                        border: 2px solid var(--ap-blue);
+                        border-radius: var(--radius-lg);
+                        box-shadow: 0 2px 12px rgba(0, 87, 184, 0.14);
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.4rem;
+                        align-items: flex-start;
+                }
+
+                .practice-progress-main {
+                        font-size: 0.98rem;
+                        font-weight: 700;
+                        line-height: 1.4;
+                }
+
+                .practice-progress-remain {
+                        display: inline-block;
+                        margin-top: 0.1rem;
+                        padding: 0.35rem 0.65rem;
+                        font-size: 1.18rem;
+                        font-weight: 800;
+                        letter-spacing: 0.02em;
+                        color: #fff;
+                        background: var(--ap-blue);
+                        border-radius: 6px;
+                        box-shadow: 0 2px 8px rgba(0, 87, 184, 0.25);
+                }
+
+                .practice-progress-banner--final .practice-progress-remain {
+                        background: var(--ap-blue-dark);
+                }
+
+                .practice-progress-banner--final {
+                        border-width: 3px;
+                        box-shadow: 0 3px 14px rgba(0, 87, 184, 0.2);
+                }
+
+                .practice-day-done-card {
+                        margin-top: 0.5rem;
+                        padding: 1.15rem 1.2rem;
+                        background: var(--ok-bg);
+                        border: 2px solid #7bc49a;
+                        border-radius: var(--radius-lg);
+                        text-align: center;
+                }
+
+                .practice-day-done-card h2 {
+                        color: var(--ok);
+                        margin-bottom: 0.5rem;
+                }
+
+                .practice-day-done-card .muted {
+                        margin: 0 0 1rem;
+                        max-width: 28rem;
+                        margin-left: auto;
+                        margin-right: auto;
+                }
+
+                .practice-checklist-congrats {
+                        margin-top: 1rem;
+                        padding: 1rem 1.1rem;
+                        background: var(--ok-bg);
+                        border: 2px solid #7bc49a;
+                        border-radius: var(--radius-lg);
+                        text-align: center;
+                }
+
+                .practice-checklist-congrats-title {
+                        margin: 0 0 0.4rem;
+                        font-size: 1.2rem;
+                        font-weight: 700;
+                        color: var(--ok);
+                }
+
+                .callout-practice {
+                        color: var(--ap-blue-dark);
+                        font-weight: 600;
+                }
+
+                a#fake-calendar {
+                        color: var(--link);
+                        font-weight: 600;
+                }
+
+                a#fake-calendar:hover {
+                        color: var(--ap-blue-dark);
+                }
+        </style>
+</head>
+
+<body>
+        <header class="site-header">
+                <div class="site-header-inner">
+                        <div class="brand">AP Classroom</div>
+                        <div class="crumb">AP Computer Science A <span aria-hidden="true">›</span> Assignments <span
+                                        aria-hidden="true">›</span> Unit 4 FRQ — Feedback <span
+                                        style="opacity:0.8;font-size:0.75rem">· student UI concept (not College
+                                        Board)</span></div>
+                </div>
+        </header>
+        <div class="app">
+                <div class="app-panel">
+                        <div class="topbar">
+                                <span class="muted">Scores &amp; feedback</span>
+                        </div>
+
+                        <!-- 1 Overview -->
+                        <section id="screen-overview" class="screen active">
+                                <h3>Course</h3>
+                                <p class="muted" style="margin:0">AP Computer Science A</p>
+                                <h3 style="margin-top:1rem">Assignment</h3>
+                                <p class="muted" style="margin:0">Unit 4 FRQ — Runtime analysis</p>
+                                <p class="score-pill">Overall score: 2 / 3</p>
+                                <p class="muted">You earned full credit on algorithm structure and readability. One
+                                        rubric row needs evidence tying Big-O to your code.</p>
+                                <p class="muted" style="margin-top:1rem"><strong class="callout-practice">Based on your
+                                                rubric gaps, we suggest one practice pack with warm-ups, several
+                                                multiple-choice drills on your weak row, and a checklist.</strong></p>
+                                <p class="muted" style="font-size:0.82rem">This is not a single question. Each pack includes
+                                        targeted items (e.g. tying Big-O to loops, nesting, recursion, and halving steps), then a checklist you can revisit in the same session before you refresh.</p>
+                                <p class="muted" style="font-size:0.8rem">You’re in the <strong>middle third</strong> of
+                                        this class (anonymous).</p>
+                                <p class="muted" style="margin-top:0.85rem;font-size:0.78rem;border-left:3px solid var(--border-strong);padding-left:0.65rem"><strong>Survey mode:</strong> practice progress is kept only for this visit. Refreshing or reopening the page starts clean so each participant sees the same baseline.</p>
+                                <button type="button" class="btn btn-primary" data-nav="list">See rubric
+                                        breakdown</button>
+                                <button type="button" class="btn btn-secondary" data-nav="queue">Practice queue</button>
+                        </section>
+
+                        <!-- 2 Rubric list -->
+                        <section id="screen-list" class="screen">
+                                <button type="button" class="btn btn-ghost" data-nav="overview">← Back</button>
+                                <h1 style="margin-top:0.5rem">Rubric breakdown</h1>
+                                <p class="muted">Tap a row for details. Rows with gaps open a pack with warm-ups, several
+                                        gap-specific questions, and a checklist.</p>
+                                <div id="rubric-list-mount"></div>
+                                <button type="button" class="btn btn-secondary" data-nav="queue">Practice queue</button>
+                        </section>
+
+                        <!-- 3 Item detail -->
+                        <section id="screen-detail" class="screen">
+                                <div id="detail-mount"></div>
+                        </section>
+
+                        <!-- 4 Evidence -->
+                        <section id="screen-evidence" class="screen">
+                                <button type="button" class="btn btn-ghost" data-nav="detail">← Back</button>
+                                <h1 style="margin-top:0.5rem">Evidence</h1>
+                                <div class="split-evidence">
+                                        <div>
+                                                <h3>Your submission</h3>
+                                                <div class="submission-box" id="evidence-submission"></div>
+                                                <p class="muted" style="margin-top:0.5rem;font-size:0.8rem"><span
+                                                                class="tag">Highlight 1</span></p>
+                                        </div>
+                                        <div>
+                                                <h3>How this maps to the criterion</h3>
+                                                <div class="card" style="margin-top:0" id="evidence-mapping"></div>
+                                        </div>
+                                </div>
+                                <div class="btn-row">
+                                        <button type="button" class="btn btn-primary" data-start-practice>Start
+                                                practice pack</button>
+                                </div>
+                        </section>
+
+                        <!-- 5 Practice pack -->
+                        <section id="screen-practice" class="screen">
+                                <button type="button" class="btn btn-ghost" data-nav="detail">← Back</button>
+                                <h1 style="margin-top:0.5rem">Ten-minute practice pack</h1>
+                                <p class="muted" id="practice-rubric-label"></p>
+                                <p class="muted" style="font-size:0.84rem"><strong>State</strong> and <strong>Example</strong> are short warm-ups (not scored quiz items). Only the <strong>Match</strong> multiple-choice steps count as practice questions, then the checklist. During this visit you can move around the app and come back; <strong>refreshing or closing the tab clears progress</strong> (survey prototype).</p>
+                                <p id="practice-question-progress" class="practice-progress-banner" role="status"
+                                        aria-live="polite"></p>
+                                <div class="progress-steps" id="practice-steps-indicator"></div>
+
+                                <div id="practice-panel-state" class="practice-panel">
+                                        <h2>Warm-up — goal</h2>
+                                        <p id="practice-state-text"></p>
+                                        <button type="button" class="btn btn-primary"
+                                                data-practice-next="example">Continue</button>
+                                </div>
+
+                                <div id="practice-panel-example" class="practice-panel" hidden>
+                                        <h2>Warm-up — sample comparison</h2>
+                                        <div class="example-pair">
+                                                <div class="ex weaker">
+                                                        <div class="ex-label">Weaker sample</div>
+                                                        <span id="practice-weaker"></span>
+                                                </div>
+                                                <div class="ex stronger">
+                                                        <div class="ex-label">Stronger sample</div>
+                                                        <span id="practice-stronger"></span>
+                                                </div>
+                                        </div>
+                                        <button type="button" class="btn btn-primary"
+                                                data-practice-next="match">Continue</button>
+                                </div>
+
+                                <div id="practice-panel-match" class="practice-panel" hidden>
+                                        <h2>Quiz (multiple choice) <span id="practice-match-sub" class="muted"
+                                                        style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em"></span>
+                                        </h2>
+                                        <p id="practice-match-q"></p>
+                                        <div id="practice-match-options"></div>
+                                        <p class="feedback-inline" id="match-feedback" aria-live="polite"></p>
+                                        <button type="button" class="btn btn-primary" id="btn-match-continue" hidden
+                                                data-match-proceed>Continue</button>
+                                </div>
+
+                                <div id="practice-panel-day-done" class="practice-panel" hidden>
+                                        <div class="practice-day-done-card">
+                                                <h2>You're done for today</h2>
+                                                <p class="muted">There are no rubric rows where you lost points that still
+                                                        need a finished practice pack—or you’ve already completed them all.
+                                                        You don’t need the checklist or another rubric item for today.</p>
+                                                <button type="button" class="btn btn-primary"
+                                                        data-nav="overview">Back to overview</button>
+                                        </div>
+                                </div>
+
+                                <div id="practice-panel-checklist" class="practice-panel" hidden>
+                                        <h2>Checklist</h2>
+                                        <p class="muted" id="checklist-why-line"></p>
+                                        <div id="checklist-mount"></div>
+                                        <div class="btn-row">
+                                                <button type="button" class="btn btn-primary" data-finish-practice>Save
+                                                        progress</button>
+                                                <button type="button" class="btn btn-secondary" data-practice-retry>Retry
+                                                        multiple-choice</button>
+                                        </div>
+                                        <div id="practice-checklist-congrats" class="practice-checklist-congrats" hidden>
+                                                <p class="practice-checklist-congrats-title">Congratulations</p>
+                                                <p class="muted" style="margin:0 0 1rem;font-size:0.9rem">This assignment has no
+                                                        other rubric rows where you lost points—finishing this checklist covers
+                                                        every gap. Save progress below, then you can return to the overview.</p>
+                                                <button type="button" class="btn btn-primary" data-nav="overview">Back to
+                                                        overview</button>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" id="btn-next-rubric" data-nav="list"
+                                                style="margin-top:0.5rem">Next rubric item</button>
+                                </div>
+                        </section>
+
+                        <!-- 6 Queue -->
+                        <section id="screen-queue" class="screen">
+                                <button type="button" class="btn btn-ghost" data-nav="overview">← Back</button>
+                                <h1 style="margin-top:0.5rem">Practice queue</h1>
+                                <p class="muted">Track suggested practice packs tied to rubric gaps. Each pack includes warm-ups,
+                                        several gap-targeted questions, and a checklist. Nothing is stored after refresh.</p>
+                                <div id="queue-mount"></div>
+                                <button type="button" class="btn btn-primary" id="btn-save-queue">Save progress</button>
+                                <p class="muted" style="font-size:0.8rem;margin-top:0.75rem">Optional: <a href="#"
+                                                id="fake-calendar">Add reminder to calendar</a> (not wired in
+                                        prototype).</p>
+                        </section>
+                </div>
+        </div>
+
+        <div id="toast" class="toast" role="status">Saved.</div>
+
+        <script>
+                const RUBRICS = [
+                        {
+                                id: "r1",
+                                name: "Correct algorithm & tracing",
+                                earned: 1,
+                                max: 1,
+                                tag: null,
+                                expectation: "Solution uses a correct approach and trace matches the described behavior.",
+                                whyLost: null,
+                                fixHint: null,
+                                evidence: null,
+                                practice: null,
+                        },
+                        {
+                                id: "r2",
+                                name: "Evidence from code / output",
+                                earned: 0,
+                                max: 1,
+                                tag: "Evidence gap",
+                                expectation: "Big-O claims must reference a concrete part of YOUR solution (loop bounds, recursion, or I/O pattern).",
+                                whyLost: "You stated the runtime but did not cite a loop or recurrence that supports it.",
+                                fixHint: "Try: tie each claim to one line of code or the exact output pattern.",
+                                evidence: {
+                                        submissionHtml:
+                                                "I iterate the array with a for-loop from 0 to arr.length-1. <span class=\"highlight\">The runtime is O(n) because it is linear.</span> The inner work is O(1) per element.",
+                                        mapping:
+                                                "The rubric asks for a structural reason from YOUR code (e.g., “the loop runs n times”). Naming “linear” without pointing to the construct does not satisfy the evidence row.",
+                                },
+                                practice: {
+                                        state:
+                                                "When you claim a Big-O bound, anchor it to a structure in YOUR code: a loop bound, recursion depth, or data-structure operation count. Vague words like “linear” or “efficient” are not enough—you must point to what runs how many times.",
+                                        weaker: "It runs fast because it goes through the list once.",
+                                        stronger:
+                                                "The for-loop runs exactly n times (one iteration per element), so the time complexity is O(n).",
+                                        matches: [
+                                                {
+                                                        question:
+                                                                "You lost points for naming a runtime without tying it to your code. Which revision best satisfies the “evidence from code” expectation?",
+                                                        hintWrong:
+                                                                "Pick the answer that counts iterations in YOUR loop and links that count to the bound.",
+                                                        options: [
+                                                                { text: "The algorithm is efficient overall.", correct: false },
+                                                                {
+                                                                        text: "The for-loop runs from 0 to n-1, so we visit each of the n elements once → O(n).",
+                                                                        correct: true,
+                                                                },
+                                                                {
+                                                                        text: "Array access is O(n) in the worst case, so the whole method is O(n).",
+                                                                        correct: false,
+                                                                },
+                                                        ],
+                                                },
+                                                {
+                                                        question:
+                                                                "You have nested for-loops: outer i from 0 to n-1, inner j from 0 to n-1. Which justification correctly supports O(n²)?",
+                                                        hintWrong:
+                                                                "Count how many times the inner body runs as a function of n.",
+                                                        options: [
+                                                                {
+                                                                        text: "There are two loops, so the runtime is automatically n squared.",
+                                                                        correct: false,
+                                                                },
+                                                                {
+                                                                        text: "The outer loop runs n times and the inner loop runs n times per outer iteration, so the inner body runs about n·n times → O(n²).",
+                                                                        correct: true,
+                                                                },
+                                                                {
+                                                                        text: "The input has n² elements, so we must use O(n²) time.",
+                                                                        correct: false,
+                                                                },
+                                                        ],
+                                                },
+                                                {
+                                                        question:
+                                                                "A recursive method calls itself once per call until n reaches 0 (n, n-1, …, 0). What is the best structural justification for O(n) time for that recursion pattern?",
+                                                        hintWrong:
+                                                                "Relate the number of recursive calls to n.",
+                                                        options: [
+                                                                {
+                                                                        text: "Recursion is exponential because it splits the problem.",
+                                                                        correct: false,
+                                                                },
+                                                                {
+                                                                        text: "There is one recursive call chain of depth n (one call per decrement until the base case), so the work is proportional to n → O(n).",
+                                                                        correct: true,
+                                                                },
+                                                                {
+                                                                        text: "Recursion always uses O(log n) time.",
+                                                                        correct: false,
+                                                                },
+                                                        ],
+                                                },
+                                                {
+                                                        question:
+                                                                "Which line sounds like a vague claim rather than evidence tied to YOUR implementation?",
+                                                        hintWrong:
+                                                                "Evidence names a construct and a count (iterations, depth, halving steps).",
+                                                        options: [
+                                                                {
+                                                                        text: "The while-loop index moves from 0 to n-1, so we do n iterations.",
+                                                                        correct: false,
+                                                                },
+                                                                {
+                                                                        text: "Overall the program scales well for large inputs without extra explanation.",
+                                                                        correct: true,
+                                                                },
+                                                                {
+                                                                        text: "Each recursive call processes a subarray half as long, halving until length 1.",
+                                                                        correct: false,
+                                                                },
+                                                        ],
+                                                },
+                                                {
+                                                        question:
+                                                                "Binary-search style: each loop iteration cuts the searchable range in half until one element remains. Which supports O(log n) time?",
+                                                        hintWrong:
+                                                                "Count how the problem size shrinks each iteration.",
+                                                        options: [
+                                                                {
+                                                                        text: "We only compare against half the array once, so it is O(1).",
+                                                                        correct: false,
+                                                                },
+                                                                {
+                                                                        text: "Each iteration halves the remaining range, so the number of iterations is about log₂ n → O(log n).",
+                                                                        correct: true,
+                                                                },
+                                                                {
+                                                                        text: "Because we use a while-loop, the runtime is O(n).",
+                                                                        correct: false,
+                                                                },
+                                                        ],
+                                                },
+                                        ],
+                                        checklist: [
+                                                {
+                                                        condition: "Name the construct",
+                                                        example: 'e.g., "for-loop over arr"',
+                                                        why: "Links the claim to inspectable code",
+                                                },
+                                                {
+                                                        condition: "Relate input size to iterations",
+                                                        example: "n iterations for n elements",
+                                                        why: "Shows you traced the bound",
+                                                },
+                                                {
+                                                        condition: "State the conclusion",
+                                                        example: "Therefore O(n) time",
+                                                        why: "Matches rubric expectations",
+                                                },
+                                        ],
+                                },
+                        },
+                        {
+                                id: "r3",
+                                name: "Readability & structure",
+                                earned: 1,
+                                max: 1,
+                                tag: null,
+                                expectation: "Names, indentation, and decomposition make the logic easy to follow.",
+                                whyLost: null,
+                                fixHint: null,
+                                evidence: null,
+                                practice: null,
+                        },
+                ];
+
+                function defaultState() {
+                        return { viewed: [], practiced: [], checks: {}, practiceProgress: {} };
+                }
+
+                /** Survey build: no localStorage — state resets on refresh or new tab so every participant starts the same. */
+                function saveState(_s) {}
+
+                let state = defaultState();
+                let currentRubricId = null;
+                let practiceStep = "state";
+                let practiceDirty = false;
+
+                function gapCount() {
+                        return RUBRICS.filter((r) => r.earned < r.max).length;
+                }
+
+                function showScreen(id) {
+                        document.querySelectorAll(".screen").forEach((el) => el.classList.remove("active"));
+                        const el = document.getElementById("screen-" + id);
+                        if (el) el.classList.add("active");
+                }
+
+                function activeScreenId() {
+                        const active = document.querySelector(".screen.active");
+                        return active ? active.id.replace("screen-", "") : null;
+                }
+
+                function savePracticeProgress(markComplete = false) {
+                        if (!currentRubricId) return;
+                        mergePracticeProgress({ step: practiceStep });
+                        if (markComplete && !state.practiced.includes(currentRubricId)) {
+                                state.practiced.push(currentRubricId);
+                        }
+                        saveState(state);
+                        practiceDirty = false;
+                }
+
+                /** In-memory only: same visit / same tab until refresh (does not mark pack “Practiced”). */
+                function persistPracticeStepOnly() {
+                        if (!currentRubricId) return;
+                        const r = rubricById(currentRubricId);
+                        if (!r?.practice) return;
+                        mergePracticeProgress({ step: practiceStep });
+                        saveState(state);
+                }
+
+                function maybeLeavePractice(target) {
+                        if (activeScreenId() !== "practice" || !practiceDirty) return true;
+                        const ok = window.confirm(
+                                "Leave this practice pack? Your place and checklist boxes are kept for this visit only (lost on refresh). It won’t show as Practiced until you finish and tap Save progress."
+                        );
+                        if (!ok) return false;
+                        practiceDirty = false;
+                        if (target === "queue") renderQueue();
+                        if (target === "list") renderRubricList();
+                        return true;
+                }
+
+                function navigateTo(target) {
+                        if (!maybeLeavePractice(target)) return;
+                        if (target === "list") renderRubricList();
+                        if (target === "queue") renderQueue();
+                        if (target === "evidence") renderEvidence();
+                        if (target === "detail" && currentRubricId) {
+                                openDetail(currentRubricId);
+                                return;
+                        }
+                        if (target === "detail") showScreen("detail");
+                        else showScreen(target);
+                }
+
+                function toast(msg) {
+                        const t = document.getElementById("toast");
+                        t.textContent = msg;
+                        t.classList.add("show");
+                        setTimeout(() => t.classList.remove("show"), 2200);
+                }
+
+                function rubricById(id) {
+                        return RUBRICS.find((r) => r.id === id);
+                }
+
+                function practiceMatchesFor(r) {
+                        if (!r?.practice) return [];
+                        if (Array.isArray(r.practice.matches) && r.practice.matches.length) return r.practice.matches;
+                        if (r.practice.match) return [r.practice.match];
+                        return [];
+                }
+
+                function practiceMcqCount(r) {
+                        return practiceMatchesFor(r).length;
+                }
+
+                function mergePracticeProgress(patch) {
+                        if (!currentRubricId) return;
+                        state.practiceProgress[currentRubricId] = {
+                                ...(state.practiceProgress[currentRubricId] || {}),
+                                ...patch,
+                        };
+                }
+
+                function currentMatchIndex() {
+                        return state.practiceProgress[currentRubricId]?.matchIndex ?? 0;
+                }
+
+                /** Another rubric row (not the current pack) still has a score gap — show “Next rubric item”. */
+                function hasOtherGapRubricsBesidesCurrent() {
+                        if (!currentRubricId) return RUBRICS.some((row) => row.earned < row.max);
+                        return RUBRICS.some((row) => row.earned < row.max && row.id !== currentRubricId);
+                }
+
+                /** After the last Match MCQ: show “done for today” if there are no deduction rows, or every such row already has a finished practice pack. */
+                function shouldShowDayCompleteAfterMatch() {
+                        const gaps = RUBRICS.filter((r) => r.earned < r.max);
+                        if (gaps.length === 0) return true;
+                        return gaps.every((r) => state.practiced.includes(r.id));
+                }
+
+                function renderRubricList() {
+                        const mount = document.getElementById("rubric-list-mount");
+                        mount.innerHTML = "";
+                        RUBRICS.forEach((r) => {
+                                const viewed = state.viewed.includes(r.id);
+                                const practiced = state.practiced.includes(r.id);
+                                const gap = r.earned < r.max;
+                                const btn = document.createElement("button");
+                                btn.type = "button";
+                                btn.className = "rubric-row";
+                                btn.dataset.rubricId = r.id;
+                                const statusTags = [];
+                                if (viewed) statusTags.push('<span class="tag ok">Viewed</span>');
+                                if (practiced && gap) statusTags.push('<span class="tag ok">Practiced</span>');
+                                if (gap && !practiced) statusTags.push('<span class="tag warn">Practice suggested</span>');
+                                btn.innerHTML = `
+          <div class="row-top">
+            <span class="name">${r.name}</span>
+            <span class="pts">${r.earned} / ${r.max}</span>
+          </div>
+          <div style="margin-top:0.5rem;display:flex;flex-wrap:wrap;gap:0.35rem;align-items:center">
+            ${r.tag ? `<span class="tag warn">${r.tag}</span>` : ""}
+            ${statusTags.join(" ")}
+          </div>
+        `;
+                                btn.addEventListener("click", () => openDetail(r.id));
+                                mount.appendChild(btn);
+                        });
+                }
+
+                function openDetail(id) {
+                        currentRubricId = id;
+                        if (!state.viewed.includes(id)) {
+                                state.viewed.push(id);
+                                saveState(state);
+                        }
+                        const r = rubricById(id);
+                        const mount = document.getElementById("detail-mount");
+                        const gap = r.earned < r.max;
+                        mount.innerHTML = `
+        <button type="button" class="btn btn-ghost" data-nav="list" style="margin-top:0.25rem">← Back to list</button>
+        <h1 style="margin-top:0.5rem">${r.name}</h1>
+        <p class="pts" style="font-weight:700;color:var(--ap-blue);font-size:1.25rem;margin:0">${r.earned} / ${r.max} points</p>
+        ${r.tag ? `<p style="margin-top:0.75rem"><span class="tag warn">${r.tag}</span></p>` : ""}
+
+        <div class="card">
+          <h3>What we expected</h3>
+          <p style="margin:0.35rem 0 0;font-size:0.95rem">${r.expectation}</p>
+          <button type="button" class="btn btn-ghost" style="margin-top:0.5rem;padding-left:0" data-toggle-rubric>Show full rubric text</button>
+          <p id="full-rubric" class="muted" hidden style="margin-top:0.5rem;font-size:0.88rem">Full rubric text would mirror the instructor’s AP-style row descriptors (prototype uses the summary above).</p>
+        </div>
+
+        ${gap && r.whyLost
+                                        ? `<div class="card">
+          <h3>Why points were lost</h3>
+          <p style="margin:0.35rem 0 0">${r.whyLost}</p>
+          <p class="muted" style="margin-top:0.75rem"><strong>Fix hint:</strong> ${r.fixHint}</p>
+        </div>`
+                                        : gap
+                                                ? ""
+                                                : `<div class="card"><p class="muted" style="margin:0">Full credit — no deduction on this row.</p></div>`
+                                }
+
+        <div class="btn-row">
+          ${r.evidence
+                                        ? `<button type="button" class="btn btn-secondary" data-nav="evidence">Evidence</button>`
+                                        : ""
+                                }
+          ${gap && r.fixHint
+                                        ? `<button type="button" class="btn btn-secondary" data-copy-fix>Copy fix hint</button>`
+                                        : ""
+                                }
+          ${r.practice
+                                        ? `<button type="button" class="btn btn-primary" data-start-practice>Start practice pack</button>`
+                                        : ""
+                                }
+        </div>
+      `;
+                        mount.querySelector("[data-toggle-rubric]")?.addEventListener("click", (e) => {
+                                const p = mount.querySelector("#full-rubric");
+                                p.hidden = !p.hidden;
+                                e.target.textContent = p.hidden ? "Show full rubric text" : "Hide full rubric text";
+                        });
+                        mount.querySelector("[data-copy-fix]")?.addEventListener("click", () => {
+                                navigator.clipboard?.writeText(r.fixHint);
+                                toast("Copied fix hint");
+                        });
+                        mount.querySelectorAll("[data-nav]").forEach((b) =>
+                                b.addEventListener("click", () => navigateTo(b.dataset.nav))
+                        );
+                        mount.querySelectorAll("[data-start-practice]").forEach((b) =>
+                                b.addEventListener("click", () => startPractice(id))
+                        );
+                        showScreen("detail");
+                }
+
+                function renderEvidence() {
+                        const r = rubricById(currentRubricId);
+                        if (!r?.evidence) return;
+                        document.getElementById("evidence-submission").innerHTML = r.evidence.submissionHtml;
+                        document.getElementById("evidence-mapping").innerHTML = `<p style="margin:0;font-size:0.92rem">${r.evidence.mapping}</p>`;
+                }
+
+                function setPracticeStep(step, markDirty = true, opts = {}) {
+                        practiceStep = step;
+
+                        if (step === "day-done") {
+                                document.querySelectorAll(".practice-panel").forEach((p) => (p.hidden = true));
+                                document.getElementById("practice-panel-day-done").hidden = false;
+                                const progDone = document.getElementById("practice-question-progress");
+                                progDone.innerHTML = "";
+                                progDone.className = "practice-progress-banner";
+                                progDone.style.display = "none";
+                                document.getElementById("practice-steps-indicator").style.display = "none";
+                                if (markDirty) practiceDirty = true;
+                                persistPracticeStepOnly();
+                                return;
+                        }
+
+                        document.getElementById("practice-panel-day-done").hidden = true;
+                        const progReset = document.getElementById("practice-question-progress");
+                        progReset.style.display = "";
+                        document.getElementById("practice-steps-indicator").style.display = "";
+
+                        const r = rubricById(currentRubricId);
+                        if (!r?.practice) return;
+
+                        const matches = practiceMatchesFor(r);
+                        const nMcq = Math.max(0, matches.length);
+
+                        if (step === "match" && opts.resetMatchIndex) {
+                                mergePracticeProgress({ matchIndex: 0 });
+                        }
+
+                        let matchIdx = 0;
+                        if (step === "match" && matches.length) {
+                                matchIdx = Math.min(Math.max(0, currentMatchIndex()), matches.length - 1);
+                                mergePracticeProgress({ matchIndex: matchIdx });
+                        }
+
+                        const order = ["state", "example", "match", "checklist"];
+                        const stepLabels = { state: "Prep 1", example: "Prep 2", match: "Quiz", checklist: "Checklist" };
+                        const ind = document.getElementById("practice-steps-indicator");
+                        ind.innerHTML = order
+                                .map((s) => {
+                                        const i = order.indexOf(s);
+                                        const cur = order.indexOf(step);
+                                        let cls = "";
+                                        if (i < cur) cls = "done";
+                                        else if (i === cur) cls = "on";
+                                        return `<span class="${cls}">${stepLabels[s]}</span>`;
+                                })
+                                .join("");
+
+                        const progress = document.getElementById("practice-question-progress");
+                        if (step === "checklist") {
+                                progress.className = "practice-progress-banner";
+                                progress.textContent = nMcq
+                                        ? `You finished all ${nMcq} quiz question${nMcq === 1 ? "" : "s"} — final step: checklist`
+                                        : "Final step: checklist";
+                        } else if (step === "state" || step === "example" || step === "match") {
+                                progress.className = "practice-progress-banner";
+                                if (step === "match" && nMcq > 0 && matchIdx === nMcq - 1) {
+                                        progress.classList.add("practice-progress-banner--final");
+                                }
+                                if (step === "state") {
+                                        progress.innerHTML = `<span class="practice-progress-main">Warm-up <strong>1</strong> of <strong>2</strong> — read the idea below. <strong>Not</strong> a scored quiz question.</span><span class="practice-progress-remain" aria-label="Number of quiz questions">${nMcq} quiz question${nMcq === 1 ? "" : "s"} in Match next</span>`;
+                                } else if (step === "example") {
+                                        progress.innerHTML = `<span class="practice-progress-main">Warm-up <strong>2</strong> of <strong>2</strong> — compare samples. <strong>Not</strong> a scored quiz question.</span><span class="practice-progress-remain" aria-label="Number of quiz questions">${nMcq} quiz question${nMcq === 1 ? "" : "s"} start after Continue</span>`;
+                                } else if (!nMcq) {
+                                        progress.textContent = "No multiple-choice quiz items in this pack.";
+                                } else {
+                                        const qn = matchIdx + 1;
+                                        const isLast = matchIdx >= nMcq - 1;
+                                        const rem = Math.max(0, nMcq - matchIdx - 1);
+                                        const remainLine = isLast
+                                                ? `<span class="practice-progress-remain">Last quiz question</span>`
+                                                : `<span class="practice-progress-remain">${rem} quiz question${rem === 1 ? "" : "s"} left</span>`;
+                                        progress.innerHTML = `<span class="practice-progress-main">Quiz question <strong>${qn}</strong> of <strong>${nMcq}</strong> — choose the best answer.</span>${remainLine}`;
+                                }
+                        }
+
+                        document.querySelectorAll(".practice-panel").forEach((p) => (p.hidden = true));
+                        document.getElementById("practice-panel-" + step).hidden = false;
+                        if (markDirty) practiceDirty = true;
+
+                        if (step === "state") {
+                                document.getElementById("practice-state-text").textContent = r.practice.state;
+                        }
+                        if (step === "example") {
+                                document.getElementById("practice-weaker").textContent = r.practice.weaker;
+                                document.getElementById("practice-stronger").textContent = r.practice.stronger;
+                        }
+                        if (step === "match") {
+                                const sub = document.getElementById("practice-match-sub");
+                                if (matches.length) {
+                                        sub.textContent = ` · Part ${matchIdx + 1} / ${matches.length}`;
+                                        sub.style.display = "";
+                                } else {
+                                        sub.textContent = "";
+                                        sub.style.display = "none";
+                                }
+                                const mcq = matches[matchIdx];
+                                const defaultWrong =
+                                        "Not quite—try again: tie the bound to a counted structure in the solution (loops, recursion depth, or how fast the problem shrinks).";
+                                document.getElementById("practice-match-q").textContent = mcq
+                                        ? mcq.question
+                                        : "No practice items configured.";
+                                const optsEl = document.getElementById("practice-match-options");
+                                optsEl.innerHTML = "";
+                                document.getElementById("match-feedback").textContent = "";
+                                document.getElementById("match-feedback").className = "feedback-inline";
+                                document.getElementById("btn-match-continue").hidden = true;
+                                (mcq?.options || []).forEach((opt) => {
+                                        const b = document.createElement("button");
+                                        b.type = "button";
+                                        b.className = "mcq-option";
+                                        b.textContent = opt.text;
+                                        b.addEventListener("click", () => {
+                                                const fb = document.getElementById("match-feedback");
+                                                const cont = document.getElementById("btn-match-continue");
+                                                if (b.disabled) return;
+                                                optsEl.querySelectorAll("button").forEach((x) => {
+                                                        x.classList.remove("correct", "wrong");
+                                                });
+                                                fb.className = "feedback-inline";
+                                                if (opt.correct) {
+                                                        b.classList.add("correct");
+                                                        optsEl.querySelectorAll("button").forEach((x) => {
+                                                                x.disabled = true;
+                                                        });
+                                                        fb.textContent = "Correct.";
+                                                        fb.classList.add("ok");
+                                                        cont.hidden = false;
+                                                } else {
+                                                        b.classList.add("wrong");
+                                                        fb.textContent = mcq.hintWrong || defaultWrong;
+                                                        fb.classList.add("bad");
+                                                        cont.hidden = true;
+                                                }
+                                        });
+                                        optsEl.appendChild(b);
+                                });
+                        }
+                        if (step === "checklist") {
+                                const why = document.getElementById("checklist-why-line");
+                                why.innerHTML = "<strong>Why (same as detail screen):</strong> " + r.whyLost;
+                                const cm = document.getElementById("checklist-mount");
+                                cm.innerHTML = "";
+                                const saved = state.checks[r.id] || [];
+                                r.practice.checklist.forEach((row, idx) => {
+                                        const id = `chk-${r.id}-${idx}`;
+                                        const wrap = document.createElement("label");
+                                        wrap.className = "check-item";
+                                        const checked = saved.includes(idx);
+                                        wrap.innerHTML = `
+            <input type="checkbox" id="${id}" data-idx="${idx}" ${checked ? "checked" : ""} />
+            <div>
+              <strong>${row.condition}</strong> — <span class="muted">${row.example}</span><br/>
+              <span class="muted" style="font-size:0.85rem">${row.why}</span>
+            </div>
+          `;
+                                        cm.appendChild(wrap);
+                                });
+                                cm.querySelectorAll("input").forEach((inp) => {
+                                        inp.addEventListener("change", () => {
+                                                const idxs = [...cm.querySelectorAll("input:checked")].map((x) => +x.dataset.idx);
+                                                state.checks[r.id] = idxs;
+                                                saveState(state);
+                                                practiceDirty = true;
+                                        });
+                                });
+                                const showNextRubric = hasOtherGapRubricsBesidesCurrent();
+                                const congratsEl = document.getElementById("practice-checklist-congrats");
+                                const nextBtn = document.getElementById("btn-next-rubric");
+                                congratsEl.hidden = showNextRubric;
+                                nextBtn.hidden = !showNextRubric;
+                                nextBtn.setAttribute("aria-hidden", showNextRubric ? "false" : "true");
+                                congratsEl.setAttribute("aria-hidden", showNextRubric ? "true" : "false");
+                        }
+                        persistPracticeStepOnly();
+                }
+
+                function startPractice(id) {
+                        currentRubricId = id;
+                        const r = rubricById(id);
+                        if (!r?.practice) return;
+                        document.getElementById("practice-rubric-label").textContent = r.name;
+                        const savedStep = state.practiceProgress[id]?.step || "state";
+                        practiceDirty = false;
+                        setPracticeStep(savedStep, false);
+                        showScreen("practice");
+                }
+
+                function renderQueue() {
+                        const mount = document.getElementById("queue-mount");
+                        mount.innerHTML = "";
+                        RUBRICS.filter((r) => r.practice).forEach((r) => {
+                                const practiced = state.practiced.includes(r.id);
+                                const checks = state.checks[r.id] || [];
+                                const total = r.practice.checklist.length;
+                                const nQuiz = practiceMcqCount(r);
+                                const card = document.createElement("div");
+                                card.className = "card";
+                                card.style.marginTop = "0.75rem";
+                                card.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem">
+            <strong>${r.name}</strong>
+            ${practiced ? '<span class="tag ok">Practiced</span>' : '<span class="tag warn">Open</span>'}
+          </div>
+          <p class="muted" style="margin:0.5rem 0 0;font-size:0.88rem">2 warm-ups + ${nQuiz} quiz question${nQuiz === 1 ? "" : "s"} + checklist. Checklist this visit: ${checks.length} / ${total}</p>
+          <p class="muted" style="margin:0.35rem 0 0;font-size:0.82rem">Progress lasts until you refresh or close the page.</p>
+          <button type="button" class="btn btn-secondary" style="margin-top:0.75rem" data-queue-open="${r.id}">${practiced ? "Continue practice pack" : "Start practice pack"
+                                        }</button>
+        `;
+                                mount.appendChild(card);
+                        });
+                        mount.querySelectorAll("[data-queue-open]").forEach((b) =>
+                                b.addEventListener("click", () => startPractice(b.dataset.queueOpen))
+                        );
+                }
+
+                document.querySelectorAll("[data-nav]").forEach((btn) => {
+                        btn.addEventListener("click", (e) => {
+                                e.preventDefault();
+                                navigateTo(btn.dataset.nav);
+                        });
+                });
+
+                document.querySelectorAll("[data-start-practice]").forEach((btn) => {
+                        btn.addEventListener("click", () => {
+                                if (currentRubricId) startPractice(currentRubricId);
+                        });
+                });
+
+                document.getElementById("screen-practice").addEventListener("click", (e) => {
+                        if (e.target.closest("[data-match-proceed]")) {
+                                e.preventDefault();
+                                const r = rubricById(currentRubricId);
+                                const matches = practiceMatchesFor(r);
+                                const mi = state.practiceProgress[currentRubricId]?.matchIndex ?? 0;
+                                if (!matches.length) {
+                                        if (shouldShowDayCompleteAfterMatch()) setPracticeStep("day-done");
+                                        else setPracticeStep("checklist");
+                                        return;
+                                }
+                                if (mi < matches.length - 1) {
+                                        mergePracticeProgress({ step: "match", matchIndex: mi + 1 });
+                                        practiceStep = "match";
+                                        setPracticeStep("match", true);
+                                } else if (shouldShowDayCompleteAfterMatch()) setPracticeStep("day-done");
+                                else setPracticeStep("checklist");
+                                return;
+                        }
+                        const nextEl = e.target.closest("[data-practice-next]");
+                        if (nextEl) {
+                                e.preventDefault();
+                                const nextStep = nextEl.dataset.practiceNext;
+                                if (nextStep === "match") setPracticeStep("match", true, { resetMatchIndex: true });
+                                else if (nextStep) setPracticeStep(nextStep);
+                                return;
+                        }
+                        if (e.target.closest("[data-finish-practice]")) {
+                                e.preventDefault();
+                                savePracticeProgress(true);
+                                toast("Progress saved");
+                                renderRubricList();
+                                return;
+                        }
+                        if (e.target.closest("[data-practice-retry]")) {
+                                e.preventDefault();
+                                setPracticeStep("match", true, { resetMatchIndex: true });
+                        }
+                });
+
+                document.getElementById("btn-save-queue").addEventListener("click", () => {
+                        saveState(state);
+                        toast("Saved.");
+                });
+
+                document.getElementById("fake-calendar").addEventListener("click", (e) => {
+                        e.preventDefault();
+                        toast("Calendar not wired in prototype");
+                });
+
+                window.addEventListener("beforeunload", (e) => {
+                        if (!practiceDirty) return;
+                        e.preventDefault();
+                        e.returnValue = "";
+                });
+
+                renderRubricList();
+        </script>
+</body>
+
+</html>
