@@ -579,6 +579,31 @@
                 a#fake-calendar:hover {
                         color: var(--ap-blue-dark);
                 }
+
+                .survey-video-card {
+                        margin-top: 1rem;
+                        border: 1px solid var(--border);
+                        border-radius: var(--radius-lg);
+                        overflow: hidden;
+                        background: #0a0f18;
+                        box-shadow: var(--shadow-card);
+                }
+
+                .survey-video-card video {
+                        display: block;
+                        width: 100%;
+                        max-height: min(85vh, 720px);
+                        height: auto;
+                        object-fit: contain;
+                }
+
+                .survey-video-caption {
+                        padding: 0.5rem 0.85rem;
+                        font-size: 0.78rem;
+                        color: var(--muted);
+                        background: var(--surface-subtle);
+                        border-top: 1px solid var(--border);
+                }
         </style>
 </head>
 
@@ -604,6 +629,20 @@
                                 <p class="muted" style="margin:0">AP Computer Science A</p>
                                 <h3 style="margin-top:1rem">Assignment</h3>
                                 <p class="muted" style="margin:0">Unit 4 FRQ — Runtime analysis</p>
+                                <h3 style="margin-top:1rem">Screen recording</h3>
+                                <p class="muted" style="margin:0;font-size:0.88rem">Walkthrough clip (hosted on this site for
+                                        the survey). If the player does not start in your browser, use the download link in
+                                        the caption — <strong>.mov</strong> usually plays best in Safari on Mac/iPhone.</p>
+                                <div class="survey-video-card">
+                                        <video controls playsinline preload="metadata" title="Prototype screen recording">
+                                                <source src="media/screen-recording-2026-03-25-150026.mov" type="video/quicktime" />
+                                                Your browser cannot play this video inline.
+                                                <a href="media/screen-recording-2026-03-25-150026.mov">Download the .mov file</a>.
+                                        </video>
+                                        <p class="survey-video-caption"><a href="media/screen-recording-2026-03-25-150026.mov"
+                                                        download>Download</a> · <code>media/screen-recording-2026-03-25-150026.mov</code>
+                                        </p>
+                                </div>
                                 <p class="score-pill">Overall score: 2 / 3</p>
                                 <p class="muted">You earned full credit on algorithm structure and readability. One
                                         rubric row needs evidence tying Big-O to your code.</p>
