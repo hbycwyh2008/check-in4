@@ -1,8 +1,9 @@
 function createApCsaFrqFeedbackForm() {
-  var form = FormApp.create('AP CSA FRQ Feedback Prototype Study');
+  var form = FormApp.create('AP Feedback Prototype Study');
 
   form.setDescription(
     'Please watch the video prototype or explore the live demo first, then complete this survey based on your honest impressions. Estimated time: 5-8 minutes. There are no right or wrong answers.\n\n' +
+    'This prototype uses AP Computer Science A FRQ feedback as the example case.\n\n' +
     'Video prototype link: [PASTE YOUR VIDEO LINK HERE]\n' +
     'Live demo link: [PASTE YOUR LIVE DEMO LINK HERE]'
   );
@@ -11,11 +12,11 @@ function createApCsaFrqFeedbackForm() {
     .setTitle('Section 1: Background');
 
   form.addMultipleChoiceItem()
-    .setTitle('1. Have you practiced AP CSA FRQs before?')
+    .setTitle('1. What is your experience with AP courses?')
     .setChoiceValues([
-      'Yes, many times',
-      'Yes, a few times',
-      'No, not really'
+      'I am currently taking one or more AP courses',
+      'I have taken AP courses before',
+      'I have little or no AP course experience'
     ])
     .setRequired(true);
 
@@ -35,7 +36,7 @@ function createApCsaFrqFeedbackForm() {
     '6. The transition from explanation to action is clear.',
     '7. This prototype would help me improve more independently.',
     '8. I would use this kind of feedback page again.',
-    '9. Overall, this feedback experience is useful for AP CSA FRQ improvement.'
+    '9. Overall, this feedback experience is useful for improvement after receiving AP-style feedback.'
   ];
 
   for (var i = 0; i < likertQuestions.length; i++) {

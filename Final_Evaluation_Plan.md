@@ -2,7 +2,7 @@
 
 ## Project Context
 
-This project redesigns the AP Classroom feedback experience for AP Computer Science A free-response questions. The final medium-fidelity prototype aims to help students:
+This project redesigns the AP Classroom feedback experience for AP Computer Science A free-response questions. AP CSA FRQ feedback is used as the primary design case, and the final medium-fidelity prototype aims to help students:
 
 1. identify where they lost points,
 2. understand why they lost points, and
@@ -15,18 +15,18 @@ The final design combines two ideas that emerged from earlier iterations:
 
 ## Evaluation Goal
 
-The goal of the final evaluation is to assess whether the final prototype helps students interpret FRQ feedback more clearly and turn that feedback into concrete improvement actions. This evaluation focuses on both usability and perceived learning support.
+The goal of the final evaluation is to assess whether the final prototype helps students interpret FRQ feedback more clearly and turn that feedback into concrete improvement actions. This evaluation focuses on usability and perceived learning support, with AP CSA serving as the example context for the feedback flow.
 
 ## Participants
 
-The target participants are students who are currently taking AP Computer Science A or students who have previously practiced AP CSA FRQs. These participants are appropriate because they are familiar with the task context and can judge whether the prototype supports realistic study behavior after receiving FRQ feedback.
+The target participants are students who are currently taking AP courses or who have previously taken AP classes. AP CSA experience is preferred but not required. This broader participant group is appropriate because the evaluation focuses primarily on whether the feedback flow is understandable, actionable, and usable for students who are familiar with AP coursework, grading, and score-report contexts.
 
 The target sample is:
 
 - ideally 8-15 participants if conducted as a questionnaire-based evaluation,
 - or around 5 participants if recruitment shifts to interview or think-aloud format.
 
-Participants will be recruited from classmates, peers, and students with prior AP CSA FRQ experience.
+Participants will be recruited from classmates, peers, and other students with AP course experience. If AP CSA students are difficult to recruit, the study will include students from other AP subjects who can still provide meaningful feedback on the clarity and usefulness of the feedback flow.
 
 ## Procedure
 
@@ -41,7 +41,8 @@ The evaluation procedure is:
    - evidence / detailed explanation,
    - practice guidance,
    - next-step action flow.
-3. The participant completes a short questionnaire with both quantitative and qualitative questions.
+3. Before answering, the participant is informed that AP CSA FRQ feedback is used as the example case in the prototype.
+4. The participant completes a short questionnaire with both quantitative and qualitative questions.
 
 If the evaluation is run synchronously, the participant may also be asked to briefly explain their impressions aloud before completing the survey.
 
@@ -60,7 +61,7 @@ The quantitative items are:
 4. The transition from explanation to action is clear.
 5. This prototype would help me improve more independently.
 6. I would use this type of feedback page again.
-7. Overall, this feedback experience is useful for AP CSA FRQ improvement.
+7. Overall, this feedback experience is useful for improvement after receiving AP-style feedback.
 
 ## Qualitative Measures
 
@@ -109,3 +110,7 @@ Based on this evaluation, I expect to be able to make claims such as:
 - which remaining issues should be addressed in future iterations.
 
 Because the evaluation is formative and sample sizes may be modest, the results will be interpreted as design guidance rather than broad generalizable claims.
+
+## Scope Note
+
+Because not all participants may be AP CSA students, the evaluation emphasizes usability, clarity, and perceived actionability rather than domain-specific AP CSA learning effectiveness. The findings therefore support the feedback design direction tested through the AP CSA case, but they should not be interpreted as evidence that the same design has already been validated across all AP subjects. Broader applicability would require additional subject-specific evaluation in future work.
