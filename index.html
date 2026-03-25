@@ -579,30 +579,6 @@
                 a#fake-calendar:hover {
                         color: var(--ap-blue-dark);
                 }
-
-                .survey-video-card {
-                        margin-top: 1rem;
-                        border: 1px solid var(--border);
-                        border-radius: var(--radius-lg);
-                        overflow: hidden;
-                        background: #0a0f18;
-                        box-shadow: var(--shadow-card);
-                }
-
-                .survey-video-card video {
-                        display: block;
-                        width: 100%;
-                        max-height: min(70vh, 480px);
-                        height: auto;
-                }
-
-                .survey-video-caption {
-                        padding: 0.5rem 0.85rem;
-                        font-size: 0.78rem;
-                        color: var(--muted);
-                        background: var(--surface-subtle);
-                        border-top: 1px solid var(--border);
-                }
         </style>
 </head>
 
@@ -628,19 +604,6 @@
                                 <p class="muted" style="margin:0">AP Computer Science A</p>
                                 <h3 style="margin-top:1rem">Assignment</h3>
                                 <p class="muted" style="margin:0">Unit 4 FRQ — Runtime analysis</p>
-                                <h3 style="margin-top:1rem">Prototype walkthrough</h3>
-                                <p class="muted" style="margin:0;font-size:0.88rem">If the survey asks you to watch a demo
-                                        first, use the recording below (embedded from this site’s <code>media/</code>
-                                        folder).</p>
-                                <div class="survey-video-card">
-                                        <video controls playsinline preload="metadata" title="Final prototype walkthrough">
-                                                <source src="media/final-prototype.mp4" type="video/mp4" />
-                                                Your browser cannot play this video inline.
-                                                <a href="media/final-prototype.mp4">Download the MP4</a>.
-                                        </video>
-                                        <p class="survey-video-caption">File: <code>media/final-prototype.mp4</code> · use
-                                                controls to play, pause, and adjust volume.</p>
-                                </div>
                                 <p class="score-pill">Overall score: 2 / 3</p>
                                 <p class="muted">You earned full credit on algorithm structure and readability. One
                                         rubric row needs evidence tying Big-O to your code.</p>
