@@ -1,5 +1,7 @@
 # Individual Project To-Do
 
+**与课程终稿要求对照**（篇幅、章节、样本量、风险点）：见 [`Individual_Project_Assignment_Requirements.md`](Individual_Project_Assignment_Requirements.md) 全文，尤其 **§5 方案检查** 与 **§7 章节—文件对照**。
+
 ## Priority Order
 
 1. Finish interview-note整理 and write `Needfinding Results`
@@ -10,6 +12,7 @@
 
 ## 1. Needfinding
 
+- [ ] Target **n = 5** interviews for needfinding (see `Needfinding_Interview_Plan.md`); confirm final count in Results
 - [ ] Confirm interview count: write down exactly how many interview recordings you have
 - [ ] For each interview, create a short summary table with:
   - participant ID
